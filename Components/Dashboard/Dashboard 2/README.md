@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="a.png" alt="alt text">
+</p>
+
 ### Dashboard layout
 ```js
 import React from 'react';
