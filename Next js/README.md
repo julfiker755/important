@@ -1,5 +1,5 @@
 ```js
-//css use
+//css use https://github.com/vercel/next.js/tree/canary/examples
 // post.module.css
 ```
 ```js
