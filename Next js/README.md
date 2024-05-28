@@ -141,4 +141,20 @@ const Dynamicpage = () => {
 };
 
 ```
+### Fetching data on the Server with third-party libraries
+```js
+// No catch data third party libery
+async function getplecholder(){
+   return axios.get("https://randomuser.me/api")
+ const Rootpage = async() => {
+  const getdata=await getplecholder()
+  console.log(getdata)
+  return (
+    <div>
+       <h1>{getdata?.data?.results[0].gender}</h1>
+    </div>
+  );
+};
+}
+```
 
