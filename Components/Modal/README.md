@@ -106,9 +106,14 @@ export default function Modal({ children }) {
 ```
 
 ```js
+// css style
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+
 
 "use client";
-
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { useEffect, useRef } from "react";
