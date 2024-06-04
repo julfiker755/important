@@ -23,8 +23,20 @@
 }
 ```
 ```js
-//css use https://github.com/vercel/next.js/tree/canary/examples
-// post.module.css
+// fetch client
+   useEffect(()=>{
+    (async()=>{
+         const blog=(await (await fetch(`${process.env.API_URL}/get-latest-blogs`)).json())["data"]
+         setlatestblog(blog)
+    })()
+   },[])
+
+// fetch server side
+async function getdata(){
+    let social=(await (await fetch(`${process.env.HOST}/api/social`,{ cache: 'no-cache' })).json())['data']
+    let categories=(await (await fetch(`${process.env.HOST}/api/categories`,{ cache: 'no-cache' })).json())['data']
+    return {social,categories}
+}
 ```
 ```js
    //security
