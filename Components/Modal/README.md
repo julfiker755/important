@@ -158,3 +158,92 @@ const Modal = ({ children }) => {
 export default Modal;
 
 ```
+
+```js
+
+// import { FaWindowClose } from "react-icons/fa";
+
+
+// const Modal = ({ isOpen, onClose, title, children }) => {
+//     return (
+//       <div className={`modal ${isOpen ? 'opacity-100 pointer-events-auto  !z-[9999999]' : 'opacity-0 pointer-events-none transition-all duration-100'}`}>
+//         <div className="modal">
+//           <div className="modal-overlay absolute w-full h-full bg-black opacity-60"></div>
+//           <div className="modal-container">
+//             <div className="modal-content">
+//               <div className="modal-box h-20 w-full bg-gray-600 ">
+//                 <p className="text-2xl font-bold">{title}</p>
+//                 <button className="modal-close" onClick={onClose}>
+//                  <FaWindowClose  className="w-6 h-6" />
+//                 </button>
+//               </div>
+//               <div className="modal-body p-2 bg-gray-500">{children}</div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   export default Modal;
+
+"use client"
+import { createPortal } from "react-dom";
+import {useEffect, useRef } from "react";
+import { IoClose } from "react-icons/io5";
+import "./index.css"
+
+const Modal = ({ children,isOpen,title}) => {
+  const modalRef = useRef(null);
+
+
+
+
+  // const handleOpen = () => {
+  //   const modal = modalRef.current;
+  //   if (modal) {
+  //     modal.showModal();
+  //   }
+  // };
+  useEffect(()=>{
+    const modal = modalRef.current;
+    if (modal) {
+      modal.showModal();
+      document.body.classList.add('overflow-hidden')
+    }
+  },[])
+
+
+
+  const handleClose = () => {
+    const modal = modalRef.current;
+    if (modal) {
+      document.body.classList.remove('overflow-hidden')
+      modal.close();
+    }
+  };
+
+
+
+
+  return createPortal(
+    <dialog
+      ref={modalRef}
+      className="shadow-teal-700 shadow-md w-[800px] border-2 border-teal-600 outline-none flex flex-col p-6 rounded-xl bg-[#09090B]"
+    >
+      <div className="flex justify-between mb-5 text-white">
+        <h1>{title}</h1>
+        <h1 onClick={handleClose}>X</h1>
+      </div>
+      <div className="text-[#74747B]">
+      {children}
+      </div>
+    </dialog>,
+    document.body
+  );
+};
+
+export default Modal;
+
+
+```
