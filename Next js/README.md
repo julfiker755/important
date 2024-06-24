@@ -1,4 +1,7 @@
 ```js
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+},[])
 /* Custom scrollbar */
 /* Width */
 ::-webkit-scrollbar {
