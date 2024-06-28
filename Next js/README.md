@@ -1,30 +1,4 @@
-```js
-  useEffect(()=>{
-    window.scrollTo(0, 0);
-},[])
-/* Custom scrollbar */
-/* Width */
-::-webkit-scrollbar {
-  width: 5px;
-  border-radius: 6px;
-}
 
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #e0e9f4;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #1890ff;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #1890ff;
-}
-```
 ```js
 // fetch client
    useEffect(()=>{
