@@ -1,4 +1,5 @@
-``js
+
+```js
   useEffect(()=>{
     window.scrollTo(0, 0);
 },[])
