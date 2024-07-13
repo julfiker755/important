@@ -141,3 +141,93 @@ const Tabs = () => {
 export default Tabs;
 
 ```
+
+```js
+/* eslint-disable react/prop-types */
+const CustomInput = ({
+    id,
+    label = '',
+    name,
+    defaultValue,
+    type,
+    disabled = false,
+    placeholder,
+    register,
+    required,
+    errors,
+}) => {
+    return (
+        <div className="w-full">
+            <label htmlFor={id} className="mb-1 block text-sm font-medium text-gray-500">
+                {label}
+            </label>
+            <input
+                type={type}
+                name={name}
+                disabled={disabled}
+                defaultValue={defaultValue}
+                placeholder={placeholder}
+              className="block w-full appearance-none rounded-sm border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#A0DEFF] focus:outline-none focus:ring-[#FFD300] sm:text-sm"
+                {...register(name, { required: required })}
+            />
+            <div className="error-text">
+                {errors && errors[name] && <span>{label || 'this'} field is required</span>}
+            </div>
+        </div>
+    );
+};
+
+export default CustomInput;
+<CustomInput
+                id="name"
+                label="Name"
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                register={register}
+                errors={errors}
+            />
+
+
+
+/* eslint-disable react/prop-types */
+const CustomSelect = ({ label, name, options, register, errors, defaultTitle, setSelectValue }) => {
+
+    return (
+        <div className="mb-1 w-full">
+            <label className="mb-1 block text-sm font-medium text-gray-500" htmlFor={name}>
+                {label}
+            </label>
+            <select
+                name={name}
+                id={name}
+                {...register(name)}
+                onChange={()=>setSelectValue(event.target.value)}
+                className={`className="block w-full appearance-none rounded-sm border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#A0DEFF] focus:outline-none focus:ring-[#FFD300] sm:text-sm" ${errors[name] ? 'border-red-500' : ''
+                    }`}
+            >
+                <option selected disabled>{defaultTitle}</option>
+                {options.map((option, index) => (
+                    <option key={index} value={option.value}>
+                        {option.label}
+                    </option>
+                ))}
+            </select>
+            {errors[name] && <p className="error-text">{errors[name].message}</p>}
+        </div>
+    );
+};
+
+export default CustomSelect;
+
+
+ <CustomSelect
+                    label="Select an Option"
+                    name="mySelect"
+                    options={category}
+                    register={register}
+                    errors={errors}
+                    defaultTitle="Choose an option"
+                    setSelectValue={setSelectValue}
+                />
+```
