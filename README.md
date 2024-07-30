@@ -21,213 +21,188 @@ export default function Rootpage({ searchParams }) {
   )
 }
 
-```js
-// components/Tabs.js
+ ```
+"use client"
+import React, { useState } from 'react'
+import { IoCheckmark } from 'react-icons/io5'
+import './index.css'
 
-import Link from 'next/link';
+function PricingCard() {
+    const [isChecked, setIsChecked] = useState(false);
+    const handleToggle = () => {
+        setIsChecked(!isChecked);
+      };
+      const pricingItems = {
+        monthly: [
+          {
+            title: "Start",
+            price: "$15.99",
+            monthy:"mo",
+            itemsList: [
+              "Online store",
+              "Unlimited products",
+              "5 staff accounts",
+              "Free SSL certificate",
+              "Gift cards creation",
+              "Professional reports",
+              "Gift cards creation",
+              "Gift cards creation",
+            ],
+          },
+          {
+            title: "Business",
+            price: "$29.99",
+            monthy:"mo",
+            itemsList: [
+              "Online store",
+              "Unlimited products",
+              "5 staff accounts",
+              "Free SSL certificate",
+              "Gift cards creation",
+              "Professional reports",
+              "Gift cards creation",
+              "Gift cards creation",
+            ],
+            color: "#574FEC",
+          },
+          {
+            title: "Enterprise",
+            price: "$99.99",
+            monthy:"mo",
+            itemsList: [
+              "Online store",
+              "Unlimited products",
+              "5 staff accounts",
+              "Free SSL certificate",
+              "Gift cards creation",
+              "Professional reports",
+              "Gift cards creation",
+              "Gift cards creation",
+            ],
+          },
+        ],
+        yearly: [
+          {
+            title: "Start",
+            price: "$1200.99",
+            itemsList: [
+              "Online store",
+              "Unlimited products",
+              "5 staff accounts",
+              "Free SSL certificate",
+              "Gift cards creation",
+              "Professional reports",
+              "Gift cards creation",
+              "Gift cards creation",
+            ],
+          },
+          {
+            title: "Business",
+            price: "$6900.99",
+            itemsList: [
+              "Online store",
+              "Unlimited products",
+              "5 staff accounts",
+              "Free SSL certificate",
+              "Gift cards creation",
+              "Professional reports",
+              "Gift cards creation",
+              "Gift cards creation",
+            ],
+            color: "#574FEC",
+          },
+          {
+            title: "Enterprise",
+            price: "$2006.90",
+            itemsList: [
+              "Online store",
+              "Unlimited products",
+              "5 staff accounts",
+              "Free SSL certificate",
+              "Gift cards creation",
+              "Professional reports",
+              "Gift cards creation",
+              "Gift cards creation",
+            ],
+          },
+        ]
+      };
 
-const Tabs = ({ activeTab }) => {
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'tab1':
-        return <div>Content for Tab 1</div>;
-      case 'tab2':
-        return <div>Content for Tab 2</div>;
-      case 'tab3':
-        return <div>Content for Tab 3</div>;
-      default:
-        return <div>Select a tab to see content</div>;
-    }
-  };
-
+  const currentPricingItems = isChecked ? pricingItems.yearly : pricingItems.monthly;
+  
   return (
-    <div>
-      <div className="tab-menu">
-        <Link href="/?tab=tab1">
-          <a className={activeTab === 'tab1' ? 'active' : ''}>Tab 1</a>
-        </Link>
-        <Link href="/?tab=tab2">
-          <a className={activeTab === 'tab2' ? 'active' : ''}>Tab 2</a>
-        </Link>
-        <Link href="/?tab=tab3">
-          <a className={activeTab === 'tab3' ? 'active' : ''}>Tab 3</a>
-        </Link>
-      </div>
-      <div className="tab-content">
-        {renderContent()}
-      </div>
-      <style jsx>{`
-        .tab-menu a {
-          margin-right: 10px;
-          text-decoration: none;
-          padding: 5px 10px;
-          color: black;
-        }
-        .tab-menu a.active {
-          font-weight: bold;
-          color: blue;
-        }
-        .tab-content {
-          margin-top: 20px;
-        }
-      `}</style>
-    </div>
-  );
-};
-
-export default Tabs;
-
-
-```
-```js
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-
-const Tabs = () => {
-  const router = useRouter();
-  const { tab } = router.query;
-
-  // Set default tab to 'tab1' if no tab query parameter is present
-  const activeTab = tab || 'tab1';
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'tab1':
-        return <div>Content for Tab 1</div>;
-      case 'tab2':
-        return <div>Content for Tab 2</div>;
-      case 'tab3':
-        return <div>Content for Tab 3</div>;
-      default:
-        return <div>Select a tab to see content</div>;
-    }
-  };
-
-  return (
-    <div>
-      <div className="tab-menu">
-        <Link href="/?tab=tab1">
-          <a className={activeTab === 'tab1' ? 'active' : ''}>Tab 1</a>
-        </Link>
-        <Link href="/?tab=tab2">
-          <a className={activeTab === 'tab2' ? 'active' : ''}>Tab 2</a>
-        </Link>
-        <Link href="/?tab=tab3">
-          <a className={activeTab === 'tab3' ? 'active' : ''}>Tab 3</a>
-        </Link>
-      </div>
-      <div className="tab-content">
-        {renderContent()}
-      </div>
-      <style jsx>{`
-        .tab-menu a {
-          margin-right: 10px;
-          text-decoration: none;
-          padding: 5px 10px;
-          color: black;
-        }
-        .tab-menu a.active {
-          font-weight: bold;
-          color: blue;
-        }
-        .tab-content {
-          margin-top: 20px;
-        }
-      `}</style>
-    </div>
-  );
-};
-
-export default Tabs;
-
-```
-
-```js
-/* eslint-disable react/prop-types */
-const CustomInput = ({
-    id,
-    label = '',
-    name,
-    defaultValue,
-    type,
-    disabled = false,
-    placeholder,
-    register,
-    required,
-    errors,
-}) => {
-    return (
-        <div className="w-full">
-            <label htmlFor={id} className="mb-1 block text-sm font-medium text-gray-500">
-                {label}
-            </label>
-            <input
-                type={type}
-                name={name}
-                disabled={disabled}
-                defaultValue={defaultValue}
-                placeholder={placeholder}
-              className="block w-full appearance-none rounded-sm border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#A0DEFF] focus:outline-none focus:ring-[#FFD300] sm:text-sm"
-                {...register(name, { required: required })}
-            />
-            <div className="error-text">
-                {errors && errors[name] && <span>{label || 'this'} field is required</span>}
-            </div>
+    <div className="w-11/12 lg:max-w-6xl m-auto relative py-10 lg:py-0 lg:top-[-115px]">
+    <div className="pb-14">
+      <ul className="flex justify-center gap-3 text-xl">
+        <li>Monthly</li>
+        <li>
+        <label className="relative inline-flex items-center cursor-pointer">
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={handleToggle}
+          className="sr-only"
+        />
+        <div
+          className={`w-[55px] h-[28px] bg-gray-300 rounded-full ${isChecked ? '!bg-blue-500' : ''} 
+          transition-colors duration-300 ease-in-out`}
+        >
+          <span
+            className={`absolute left-[2px] top-[2px] w-6 h-6 bg-white rounded-full transition-transform duration-300 ease-in-out 
+            ${isChecked ? 'translate-x-[27px]' : ''}`}
+          ></span>
         </div>
-    );
-};
-
-export default CustomInput;
-<CustomInput
-                id="name"
-                label="Name"
-                type="text"
-                name="name"
-                placeholder="Enter your name"
-                register={register}
-                errors={errors}
-            />
-
-
-
-/* eslint-disable react/prop-types */
-const CustomSelect = ({ label, name, options, register, errors, defaultTitle, setSelectValue }) => {
-
-    return (
-        <div className="mb-1 w-full">
-            <label className="mb-1 block text-sm font-medium text-gray-500" htmlFor={name}>
-                {label}
-            </label>
-            <select
-                name={name}
-                id={name}
-                {...register(name)}
-                onChange={()=>setSelectValue(event.target.value)}
-                className={`className="block w-full appearance-none rounded-sm border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#A0DEFF] focus:outline-none focus:ring-[#FFD300] sm:text-sm" ${errors[name] ? 'border-red-500' : ''
-                    }`}
+      </label>
+        </li>
+        <li>Yearly</li>
+      </ul>
+    </div>
+    <div className="grid gap-y-10 lg:gap-y-0 lg:gap-x-8 grid-cols-1 lg:grid-cols-3">
+      {currentPricingItems?.map((item, index) =>(     
+        <div
+          key={index}
+          className="pricing-card-shadow lg:even:[transform:translateY(-25px)] bg-white lg:hover:!shadow-pricing-hover border lg:border-none rounded-lg lg:rounded-2xl p-5 translate-y-4"
+        >
+          <div className="flex justify-between items-center pb-12">
+            <h1
+              style={{ color: item.color }}
+              className="text-2xl text-color font-medium"
             >
-                <option selected disabled>{defaultTitle}</option>
-                {options.map((option, index) => (
-                    <option key={index} value={option.value}>
-                        {option.label}
-                    </option>
-                ))}
-            </select>
-            {errors[name] && <p className="error-text">{errors[name].message}</p>}
+              {item.title}
+            </h1>
+            <ul className="text-gray-400 text-xl text-right">
+              <li className="">/mo</li>
+              <li className="text-2xl">{item.price}</li>
+            </ul>
+          </div>
+          <ul className="space-y-3">
+            {item?.itemsList?.map((items, index) => (
+              <li
+                key={index}
+                className="flex gap-2 items-center text-base text-[#384C74]"
+              >
+                <h1 className="bg-custom-gray w-fit h-fit p-1 rounded-full">
+                  <IoCheckmark size={16} color="#6DBB30" />
+                </h1>
+                {items}
+              </li>
+            ))}
+          </ul>
+          <div>
+            <button
+              style={{ color: item.color }}
+              className={"text-[#384C74] text-lg pt-14"}
+            >
+              Get Started
+            </button>
+          </div>
         </div>
-    );
-};
+      ))}
+      
+    </div>
+  </div>
+  )
+}
 
-export default CustomSelect;
-
-
- <CustomSelect
-                    label="Select an Option"
-                    name="mySelect"
-                    options={category}
-                    register={register}
-                    errors={errors}
-                    defaultTitle="Choose an option"
-                    setSelectValue={setSelectValue}
-                />
-```
+export default PricingCard
+js```
