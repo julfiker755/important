@@ -1,3 +1,7 @@
+<p>
+ <h1 style="color:red;" align="center">Pagination</h1>
+</p>
+
 ```js
 import { Pagination } from "@/components/reuseable/pagination";
 
