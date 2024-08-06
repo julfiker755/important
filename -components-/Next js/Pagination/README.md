@@ -24,7 +24,7 @@ export default Blogs;
 ```
 
 ```js
-  import Link from "next/link";
+import Link from "next/link";
 import { HiChevronDoubleLeft } from "react-icons/hi";
 import { HiChevronDoubleRight } from "react-icons/hi";
 
