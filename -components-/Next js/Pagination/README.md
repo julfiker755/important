@@ -22,7 +22,9 @@ function Blogs({ searchParams: { page } }) {
 export default Blogs;
 
 ```
-import Link from "next/link";
+
+```js
+  import Link from "next/link";
 import { HiChevronDoubleLeft } from "react-icons/hi";
 import { HiChevronDoubleRight } from "react-icons/hi";
 
@@ -94,6 +96,4 @@ export function Pagination({ page=1, totalPages, hasNextPage }) {
     </div>
   );
 }
-```js
-
 ```
