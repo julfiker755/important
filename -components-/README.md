@@ -131,3 +131,4 @@ export default function CustomTable({ headers, children }) {
             </td>
           </tr>
         </CustomTable>
+js
