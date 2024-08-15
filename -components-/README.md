@@ -1,3 +1,4 @@
+js
 import "./index.css";
 
 export default function CustomTable({ headers, children }) {
@@ -26,6 +27,7 @@ export default function CustomTable({ headers, children }) {
     );
   }
 
+```js
   //--------------------
     <CustomTable headers={["Feature", "Affity", "Affise", "Offer18", "HasOffers"]}>
         <tr className="border-b-[1px]">
