@@ -1,50 +1,83 @@
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
 ```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+import "./index.css";
+
+export default function CustomTable({ headers, children }) {
+    return (
+      <div>
+        <div className="overflow-x-auto">
+          <table className="custom-table w-full min-h-full">
+            <thead className="">
+              <tr className="bg-[#052D57] !rounded-md">
+                {headers?.map((header, index) => (
+                  <th
+                    key={index}
+                    className={`py-3 text-lg text-white`}
+                  >
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {children}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
 ```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
 ```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+    <CustomTable headers={["Feature", "Affity", "Affise", "Offer18", "HasOffers"]}>
+        <tr className="border-b-[1px]">
+            <td className="!text-left !text-lg lg:w-[250px]">
+              Affordable Pricing
+            </td>
+            <td className="table-shadow">
+              <div className="flex gap-1 justify-center text-lg items-center">
+                <IoCheckmarkCircleSharp   className="text-[#008000d7]" size={22}/>
+              </div>
+            </td>
+            <td>
+            <div className="flex gap-1 justify-center text-lg items-center">
+              <IoCloseCircleSharp className="text-[#ff000098]" size={22}/>
+              </div>
+            </td>
+            <td>
+            <div className="flex gap-1 justify-center text-lg items-center">
+                <IoCloseCircleSharp className="text-[#ff000098]" size={22}/>
+              </div>
+            </td>
+            <td>
+            <div className="flex gap-1 justify-center text-lg items-center">
+                <IoCloseCircleSharp className="text-[#ff000098]" size={22}/>
+              </div>
+            </td>
+          </tr>
+          <tr className="border-b-[1px]">
+            <td className="!text-left !text-lg lg:w-[250px]">
+               Quick Onboarding
+            </td>
+            <td className="table-shadow">
+              <div className="flex gap-1 justify-center text-lg items-center">
+              <IoCheckmarkCircleSharp   className="text-[#008000d7]" size={22}/>
+              </div>
+            </td>
+            <td>
+            <div className="flex gap-1 justify-center text-lg items-center">
+               <IoCloseCircleSharp className="text-[#ff000098]" size={22}/>
+              </div>
+            </td>
+            <td>
+            <div className="flex gap-1 justify-center text-lg items-center">
+            <IoCheckmarkCircleSharp   className="text-[#008000d7]" size={22}/>
+              </div>
+            </td>
+            <td>
+            <div className="flex gap-1 justify-center text-lg items-center">
+              <IoCloseCircleSharp className="text-[#ff000098]" size={22}/>
+              </div>
+            </td>
+          </tr>
+        </CustomTable>
 ```
