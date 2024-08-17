@@ -28,6 +28,15 @@ export default function CustomTable({ headers, children }) {
   }
 ```
 ```js
+.custom-table tr {
+    @apply whitespace-nowrap;
+}
+
+.custom-table td {
+    @apply px-6 py-2 text-sm text-gray-500 text-center;
+}
+```
+```js
     <CustomTable headers={["Feature", "Affity", "Affise", "Offer18", "HasOffers"]}>
         <tr className="border-b-[1px]">
             <td className="!text-left !text-lg lg:w-[250px]">
