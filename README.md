@@ -1,208 +1,227 @@
-# IMPORTANT
- const bodycontent=body.match(/<body[^>]*>([\s\S.]*)<\/body>/i)[1]
+```js
+"use client";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Button from "@/components/button";
+import CountryData from "@/components/data/country-data";
+import Input from "@/components/reuseable/Input";
+import Select from "@/components/reuseable/Select";
+import Link from "next/link";
+import React, { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
- https://www.npmjs.com/package/html-react-parser
+const schema = yup
+  .object({
+    name: yup.string().required("Name is required"),
+    email: yup.string().email("Invalid email").required("Email is required"),
+    mobile: yup.string().required("Mobile number is required"),
+    skype: yup.string().required("Skype address is required"),
+    password: yup.string().required("Password is required"),
+    repeatPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "Passwords do not match")
+      .required("Password confirmation is required"),
+    country: yup
+      .object({
+        value: yup.string().required("Country is required"),
+        label: yup.string().required(),
+      })
+      .required("Country is required"),
+  })
+  .required();
 
+function FreeTrialFrom() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [repeatPassword, setRepeatPassword] = useState(false);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors: formErrors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
+  const onSubmit = async (data) => {
+    const formData = {
+      name: data.name,
+      email: data.email,
+      country: data.country.label,
+      mobile: data.mobile,
+      skype: data.skype,
+      password: data.password,
+    };
 
-  https://github.com/taylor-lindores-reeves/NextJS-SSR-offset-based-pagination/blob/main/components/pagination.tsx
-  https://www.youtube.com/watch?v=cxxumABmLYA
+    console.log(formData);
 
+    // try {
+    //   const res = await useApi.post("/v1/admin/advertiser/store", formData);
+    //   if (res?.data?.success) {
+    //     toast.success("Advertiser Created Successfully", {
+    //       duration: 4000,
+    //       position: "top-right",
+    //     });
+    //     reset();
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
 
-import React from 'react'
-import Pagination from './paginatio'
-
-export default function Rootpage({ searchParams }) {
-  console.log(searchParams.page)
   return (
     <div>
-      <Pagination page={searchParams.page}></Pagination>
-    </div>
-  )
-}
-
- ```
-"use client"
-import React, { useState } from 'react'
-import { IoCheckmark } from 'react-icons/io5'
-import './index.css'
-
-function PricingCard() {
-    const [isChecked, setIsChecked] = useState(false);
-    const handleToggle = () => {
-        setIsChecked(!isChecked);
-      };
-      const pricingItems = {
-        monthly: [
-          {
-            title: "Start",
-            price: "$15.99",
-            monthy:"mo",
-            itemsList: [
-              "Online store",
-              "Unlimited products",
-              "5 staff accounts",
-              "Free SSL certificate",
-              "Gift cards creation",
-              "Professional reports",
-              "Gift cards creation",
-              "Gift cards creation",
-            ],
-          },
-          {
-            title: "Business",
-            price: "$29.99",
-            monthy:"mo",
-            itemsList: [
-              "Online store",
-              "Unlimited products",
-              "5 staff accounts",
-              "Free SSL certificate",
-              "Gift cards creation",
-              "Professional reports",
-              "Gift cards creation",
-              "Gift cards creation",
-            ],
-            color: "#574FEC",
-          },
-          {
-            title: "Enterprise",
-            price: "$99.99",
-            monthy:"mo",
-            itemsList: [
-              "Online store",
-              "Unlimited products",
-              "5 staff accounts",
-              "Free SSL certificate",
-              "Gift cards creation",
-              "Professional reports",
-              "Gift cards creation",
-              "Gift cards creation",
-            ],
-          },
-        ],
-        yearly: [
-          {
-            title: "Start",
-            price: "$1200.99",
-            itemsList: [
-              "Online store",
-              "Unlimited products",
-              "5 staff accounts",
-              "Free SSL certificate",
-              "Gift cards creation",
-              "Professional reports",
-              "Gift cards creation",
-              "Gift cards creation",
-            ],
-          },
-          {
-            title: "Business",
-            price: "$6900.99",
-            itemsList: [
-              "Online store",
-              "Unlimited products",
-              "5 staff accounts",
-              "Free SSL certificate",
-              "Gift cards creation",
-              "Professional reports",
-              "Gift cards creation",
-              "Gift cards creation",
-            ],
-            color: "#574FEC",
-          },
-          {
-            title: "Enterprise",
-            price: "$2006.90",
-            itemsList: [
-              "Online store",
-              "Unlimited products",
-              "5 staff accounts",
-              "Free SSL certificate",
-              "Gift cards creation",
-              "Professional reports",
-              "Gift cards creation",
-              "Gift cards creation",
-            ],
-          },
-        ]
-      };
-
-  const currentPricingItems = isChecked ? pricingItems.yearly : pricingItems.monthly;
-  
-  return (
-    <div className="w-11/12 lg:max-w-6xl m-auto relative py-10 lg:py-0 lg:top-[-115px]">
-    <div className="pb-14">
-      <ul className="flex justify-center gap-3 text-xl">
-        <li>Monthly</li>
-        <li>
-        <label className="relative inline-flex items-center cursor-pointer">
-        <input
-          type="checkbox"
-          checked={isChecked}
-          onChange={handleToggle}
-          className="sr-only"
-        />
-        <div
-          className={`w-[55px] h-[28px] bg-gray-300 rounded-full ${isChecked ? '!bg-blue-500' : ''} 
-          transition-colors duration-300 ease-in-out`}
-        >
-          <span
-            className={`absolute left-[2px] top-[2px] w-6 h-6 bg-white rounded-full transition-transform duration-300 ease-in-out 
-            ${isChecked ? 'translate-x-[27px]' : ''}`}
-          ></span>
-        </div>
-      </label>
-        </li>
-        <li>Yearly</li>
-      </ul>
-    </div>
-    <div className="grid gap-y-10 lg:gap-y-0 lg:gap-x-8 grid-cols-1 lg:grid-cols-3">
-      {currentPricingItems?.map((item, index) =>(     
-        <div
-          key={index}
-          className="pricing-card-shadow lg:even:[transform:translateY(-25px)] bg-white lg:hover:!shadow-pricing-hover border lg:border-none rounded-lg lg:rounded-2xl p-5 translate-y-4"
-        >
-          <div className="flex justify-between items-center pb-12">
-            <h1
-              style={{ color: item.color }}
-              className="text-2xl text-color font-medium"
-            >
-              {item.title}
-            </h1>
-            <ul className="text-gray-400 text-xl text-right">
-              <li className="">/mo</li>
-              <li className="text-2xl">{item.price}</li>
-            </ul>
+      <h1 className="text-3xl font-bold pb-5">Create an Account</h1>
+      <p className="text-gray-500 text-lg">
+        Get started with your free account today. No credit card needed and no setup fees.
+      </p>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="py-10 space-y-4">
+          <Controller
+            name="name"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                label="Name:"
+                placeholder="Enter Your Name"
+                errorMessage={error?.message}
+                {...field}
+              />
+            )}
+          />
+          <Controller
+            name="email"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                label="Company Email:"
+                placeholder="Enter Your Email"
+                errorMessage={error?.message}
+                {...field}
+              />
+            )}
+          />
+          <Controller
+            name="country"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+             <Select
+                label="Country:"
+                options={CountryData}
+                placeholder="Select the Country"
+                labelColor="text-gray-700"
+                color="gray"
+                search={true}
+                errorMessage={error?.value?.message}
+                {...field}
+              />
+            )}
+          />
+          <Controller
+            name="mobile"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                label="Mobile Number:"
+                placeholder="Enter Your Mobile Number"
+                errorMessage={error?.message}
+                {...field}
+              />
+            )}
+          />
+          <Controller
+            name="skype"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                label="Skype Address:"
+                placeholder="Enter Your Skype Address"
+                errorMessage={error?.message}
+                {...field}
+              />
+            )}
+          />
+          <div className="w-full relative">
+            <Controller
+              name="password"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  errorMessage={error?.message}
+                  {...field}
+                />
+              )}
+            />
+            {showPassword ? (
+              <IoEyeOutline
+                className="absolute right-5 top-[34px] cursor-pointer text-lg text-gray-500"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            ) : (
+              <IoEyeOffOutline
+                className="absolute right-5 top-[34px] cursor-pointer text-lg text-gray-500"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
           </div>
-          <ul className="space-y-3">
-            {item?.itemsList?.map((items, index) => (
-              <li
-                key={index}
-                className="flex gap-2 items-center text-base text-[#384C74]"
+          <div className="w-full relative">
+            <Controller
+              name="repeatPassword"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input
+                  label="Repeat Password"
+                  type={repeatPassword ? "text" : "password"}
+                  placeholder="Repeat Password"
+                  errorMessage={error?.message}
+                  {...field}
+                />
+              )}
+            />
+            {repeatPassword ? (
+              <IoEyeOutline
+                className="absolute right-5 top-[34px] cursor-pointer text-lg text-gray-500"
+                onClick={() => setRepeatPassword(!repeatPassword)}
+              />
+            ) : (
+              <IoEyeOffOutline
+                className="absolute right-5 top-[34px] cursor-pointer text-lg text-gray-500"
+                onClick={() => setRepeatPassword(!repeatPassword)}
+              />
+            )}
+          </div>
+          <div className="flex gap-2 pt-2">
+            <input
+              className="w-5 h-4 text-blue-600 mt-[6px] border-gray-500 rounded"
+              type="checkbox"
+            />
+            <p className="text-lg">
+              By signing up you agree to the{" "}
+              <Link
+                className="text-link-color underline"
+                href={"/terms-and-conditions"}
               >
-                <h1 className="bg-custom-gray w-fit h-fit p-1 rounded-full">
-                  <IoCheckmark size={16} color="#6DBB30" />
-                </h1>
-                {items}
-              </li>
-            ))}
-          </ul>
-          <div>
-            <button
-              style={{ color: item.color }}
-              className={"text-[#384C74] text-lg pt-14"}
-            >
-              Get Started
-            </button>
+                Terms & Conditions
+              </Link>{" "}
+              and{" "}
+              <Link
+                className="text-link-color underline"
+                href={"/privacy-policies"}
+              >
+                Privacy Policy
+              </Link>
+            </p>
           </div>
+          <Button className="!px-10 !mt-6">Submit</Button>
         </div>
-      ))}
-      
+      </form>
     </div>
-  </div>
-  )
+  );
 }
 
-export default PricingCard
+export default FreeTrialFrom;
+
 ```
