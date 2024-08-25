@@ -1,4 +1,7 @@
-### Dashboard layout 
+<p>
+ <h1 style="color:red;" align="center">Dashboard</h1>
+</p>
+
 ```js
 import React from 'react';
 import { useState } from 'react';
