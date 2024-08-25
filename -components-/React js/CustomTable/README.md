@@ -37,6 +37,18 @@ export default function CustomTable({ headers, children }) {
 }
 ```
 ```js
+{
+  customer?.map((item, index) => (
+    <tr
+      className={`transition-all duration-300 ${index % 2 === 0 ? "" : "bg-gray-200"
+        }`}
+      key={index}
+    >
+    </tr>
+ }
+```
+
+```js
     <CustomTable headers={["Feature", "Affity", "Affise", "Offer18", "HasOffers"]}>
         <tr className="border-b-[1px]">
             <td className="!text-left !text-lg lg:w-[250px]">
