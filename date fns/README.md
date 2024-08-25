@@ -28,3 +28,15 @@ const totalprice=totaldays * room?.price
 console.log(totalprice)
 ```
 
+```js
+npm install lodash
+import { debounce } from "lodash";
+ // Debounced search state and functionlity
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+  useEffect(() => {
+    const handler = debounce(() => setDebouncedSearch(search), 500);
+    handler();
+    return () => handler.cancel();
+  }, [search]);
+```
+
