@@ -9,13 +9,16 @@ import 'react-responsive-pagination/themes/classic.css';
 
 
 function MyApp() {
-  const [currentPage, setCurrentPage] = useState(8);
+  const [currentPage, setCurrentPage] = useState(8)
   const totalPages = 20;
+   const per_page=20
+   //page count number
+  const total = Math.ceil( parseInt(totalPages) / parseInt(per_page))
 
   return (
     <ResponsivePagination
       current={currentPage}
-      total={totalPages}
+      total={total}
       onPageChange={setCurrentPage}
     />
   );
