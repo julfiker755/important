@@ -298,3 +298,15 @@ const DropdownUser = () => {
 export default DropdownUser;
 
 ```
+
+```js
+ // close if the esc key is pressed
+  useEffect(() => {
+    const keyHandler = ({ keyCode }: KeyboardEvent) => {
+      if (!sidebarOpen || keyCode !== 27) return;
+      setSidebarOpen(false);
+    };
+    document.addEventListener('keydown', keyHandler);
+    return () => document.removeEventListener('keydown', keyHandler);
+  });
+```
