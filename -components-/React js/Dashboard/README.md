@@ -310,3 +310,191 @@ export default DropdownUser;
     return () => document.removeEventListener('keydown', keyHandler);
   });
 ```
+```js
+import {
+  IconApps,
+  IconBarrierBlock,
+  IconBoxSeam,
+  IconChartHistogram,
+  IconComponents,
+  IconError404,
+  IconExclamationCircle,
+  IconHexagonNumber1,
+  IconHexagonNumber2,
+  IconHexagonNumber3,
+  IconHexagonNumber4,
+  IconHexagonNumber5,
+  IconLayoutDashboard,
+  IconMessages,
+  IconRouteAltLeft,
+  IconServerOff,
+  IconSettings,
+  IconTruck,
+  IconUserShield,
+  IconUsers,
+  IconLock,
+} from '@tabler/icons-react';
+
+
+const sidelinks = [
+  {
+    title: 'Dashboard',
+    href: '/',
+    icon: <IconLayoutDashboard size={18} />,
+  },
+  {
+    title: 'Chats',
+    href: '/charts',
+    icon: <IconMessages size={18} />,
+  },
+  {
+    title: 'Apps',
+    href: '/apps',
+    icon: <IconApps size={18} />,
+  },
+  {
+    title: 'Authentication',
+    icon: <IconUserShield size={18} />,
+    sub: [
+      { title: 'Sign In ', href: '/sign-in', icon: <IconHexagonNumber1 size={18} /> },
+      { title: 'Sign In', href: '/sign-in-2', icon: <IconHexagonNumber2 size={18} /> },
+      { title: 'Sign Up', href: '/sign-up', icon: <IconHexagonNumber3 size={18} /> },
+      { title: 'Forgot Password', href: '/forgot-password', icon: <IconHexagonNumber4 size={18} /> },
+      { title: 'OTP', href: '/otp', icon: <IconHexagonNumber5 size={18} /> },
+    ],
+  },
+  {
+    title: 'Users',
+    href: '/users',
+    icon: <IconUsers size={18} />,
+  },
+  {
+    title: 'Requests',
+    icon: <IconRouteAltLeft size={18} />,
+    sub: [
+      { title: 'Trucks', href: '/trucks', icon: <IconTruck size={18} /> },
+      { title: 'Cargos', href: '/cargos', icon: <IconBoxSeam size={18} /> },
+    ],
+  },
+  {
+    title: 'Analysis',
+    href: '/analysis',
+    icon: <IconChartHistogram size={18} />,
+  },
+  {
+    title: 'Extra Components',
+    href: '/extra-components',
+    icon: <IconComponents size={18} />,
+  },
+  {
+    title: 'Error Pages',
+    icon: <IconExclamationCircle size={18} />,
+    sub: [
+      { title: 'Not Found', href: '/404', icon: <IconError404 size={18} /> },
+      { title: ' Error', href: '/500', icon: <IconServerOff size={18} /> },
+      { title: 'Maintenance', href: '/503', icon: <IconBarrierBlock size={18} /> },
+      { title: 'Unauthorized', href: '/401', icon: <IconLock size={18} /> },
+    ],
+  },
+  {
+    title: 'Settings',
+    href: '/settings',
+    icon: <IconSettings size={18} />,
+  },
+];
+
+export default sidelinks
+````
+
+```js
+import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import {IconChevronDown,IconChevronUp,} from '@tabler/icons-react';
+import sidelinks from './data';
+
+const Sidebar = () => {
+  const [activeAccordion, setActiveAccordion] = useState(null);
+  const [contentHeight, setContentHeight] = useState(0);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const contentRef = useRef(null);
+
+  const isActive = location.pathname
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, []);
+
+
+  const toggleAccordion = (index) => {
+    setActiveAccordion(activeAccordion === index ? null : index);
+  };
+
+  const renderLink = (item, index) => {
+    const isAccordionOpen = activeAccordion === index;
+
+    return (
+      <li key={index}>
+        {item.href ? (
+          <div
+            className={`flex items-center justify-between hover:bg-[#3a6d85] text-black ${isActive === item.href && "text-white"} transition-all p-2 rounded cursor-pointer`}
+            onClick={() => {
+                setActiveAccordion(null);
+                navigate(item.href);
+            }}
+          >
+            <div className="flex items-center gap-2">
+              {item.icon}
+              <span>{item.title}</span>
+            </div>
+          </div>
+        ) : (
+          <div
+            className={`flex items-center justify-between p-2 rounded ${isActive === item.href && "text-white"}  hover:bg-[#3a6d85] cursor-pointer`}
+            onClick={() => toggleAccordion(index)}
+          >
+            <div className="flex items-center gap-2">
+              {item.icon}
+              <span>{item.title}</span>
+            </div>
+            {item.sub && (
+              <div>{isAccordionOpen ? <IconChevronUp size={18} /> : <IconChevronDown size={18} />}</div>
+            )}
+          </div>
+        )}
+        {item.sub && (
+          <ul
+          style={{ maxHeight: isAccordionOpen ? `${contentHeight}px` : "0px" }}
+          ref={contentRef}
+           className={`pl-4 overflow-hidden transition-all duration-300`}>
+            {item.sub.map((subItem, subIndex) => (
+              <li key={subIndex}>
+                <div
+                  className={`flex items-center justify-between ${isActive === item.href && "text-white"} text-black hover:bg-[#3a6d85] p-2 rounded cursor-pointer`}
+                  onClick={() => navigate(subItem.href)}
+                >
+                  <div className="flex items-center gap-2">
+                    {subItem.icon}
+                    <span>{subItem.title}</span>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    );
+  };
+
+  return (
+    <nav className="py-2 w-[300px] custom-scrollbar scrollbar-hide h-screen overflow-y-auto overflow-hidden bg-[#5190ad]">
+      <ul className="space-y-3">{sidelinks.map((item, index) => renderLink(item, index))}</ul>
+    </nav>
+  );
+};
+
+export default Sidebar;
+
+```
