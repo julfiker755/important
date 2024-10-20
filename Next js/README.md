@@ -71,7 +71,15 @@ const nextConfig = {
         domains:["images.pexels.com"]
     }
 }
-
+// all images allowed
+ images:{
+        remotePatterns:[
+            {
+                protocol:'https',
+                hostname:"**"
+            }
+        ]
+    }
 
 // base path --
 const nextConfig = {
