@@ -11,7 +11,6 @@ import Sidebar from './Sideber/Sideber';
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <div className="bg-boxdark-2 text-bodydark">
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
@@ -26,7 +25,6 @@ const DashboardLayout = () => {
           </main>
         </div>
       </div>
-    </div>
   );
 };
 
