@@ -365,6 +365,7 @@ const menuItems= [
 ];
 ```
 ```js
+ const [pageName, setPageName] = useLocalStorage("selectedMenu", "dashboard");
   {/* <!-- Sidebar Menu --> */}
           <nav>
               <ul className="mb-6 flex flex-col gap-2">
@@ -378,6 +379,37 @@ const menuItems= [
                   ))}
                 </ul>
           </nav>
+```
+```js
+"use client";
+import { useEffect, useState } from "react";
+
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      if (typeof window !== "undefined") {
+        const item = window.localStorage.getItem(key);
+        return item ? JSON.parse(item) : initialValue;
+      }
+    } catch (error) {
+      return initialValue;
+    }
+  });
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(key, JSON.stringify(storedValue));
+      }
+    } catch (error) {
+      // console.log(error);
+    }
+  }, [key, storedValue]);
+
+  return [storedValue, setStoredValue];
+}
+
+export default useLocalStorage;
+
 ```
 ```js
 import React from "react";
