@@ -379,3 +379,87 @@ const menuItems= [
                 </ul>
           </nav>
 ```
+```js
+import React from "react";
+import Link from "next/link";
+import SidebarDropdown from "@/components/Sidebar/SidebarDropdown";
+import { BsChevronDown } from "react-icons/bs";
+
+const SidebarItem = ({ item, pageName, setPageName }) => {
+  const handleClick = () => {
+    const updatedPageName =
+      pageName !== item.label.toLowerCase() ? item.label.toLowerCase() : "";
+    return setPageName(updatedPageName);
+  };
+
+  return (
+    <>
+      <li>
+        <Link
+          href={item.route}
+          onClick={handleClick}
+          className={`${pageName === item.label.toLowerCase() ? "bg-primary/[.07] text-primary" : "text-dark-4 hover:bg-gray-2 hover:text-dark"} group relative flex items-center gap-3 rounded-[7px] px-3.5 py-3 font-medium duration-300 ease-in-out`}
+        >
+          {<item.icon size={20}/>}
+          {item.label}
+          {item.children && (
+            <BsChevronDown className={`absolute right-3.5 top-1/2 -translate-y-1/2 fill-current ${
+                  pageName !== item.label.toLowerCase() && "rotate-180"
+                }`}/>
+          )}
+        </Link>
+
+        {item.children && (
+          <div
+            className={`translate transform overflow-hidden ${
+              pageName !== item.label.toLowerCase() && "hidden"
+            }`}
+          >
+            <SidebarDropdown item={item.children} />
+          </div>
+        )}
+      </li>
+    </>
+  );
+};
+
+export default SidebarItem;
+```
+```js
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const SidebarDropdown = ({ item }) => {
+  const pathname = usePathname();
+
+  return (
+    <>
+      <ul className="my-2 flex flex-col gap-1.5 pl-9">
+        {item.map((item,index) => (
+          <li key={index}>
+            <Link
+              href={item.route}
+              className={`relative flex rounded-[7px] px-3.5 py-2 font-medium duration-300 ease-in-out ${
+                pathname === item.route
+                  ? "bg-primary/[.07] text-primary"
+                  : "text-dark-4 hover:bg-gray-2 hover:text-dark"
+              }`}
+            >
+              {item.label}
+              {item.pro && (
+                <span className="absolute right-3.5 top-1/2 -translate-y-1/2 rounded-md bg-primary px-1.5 py-px text-[10px] font-medium leading-[17px] text-white">
+                  Pro
+                </span>
+              )}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+export default SidebarDropdown;
+
+```
