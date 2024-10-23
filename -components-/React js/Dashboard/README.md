@@ -320,7 +320,7 @@ import { FaPager } from "react-icons/fa";
 
 const menuItems= [
       {
-        icon:< MdDashboard/>,
+        icon:MdDashboard,
         label: "Dashboard",
         route: "#",
         children: [
@@ -328,17 +328,17 @@ const menuItems= [
         ],
       },
       {
-        icon:<FaRegCalendarAlt/>,
+        icon:FaRegCalendarAlt,
         label: "Calendar",
         route: "/calendar",
       },
       {
-        icon:<CgProfile/>,
+        icon:CgProfile,
         label: "Profile",
         route: "/profile",
       },
       {
-        icon:<FaWpforms/>,
+        icon:FaWpforms,
         label: "Forms",
         route: "#",
         children: [
@@ -347,7 +347,7 @@ const menuItems= [
         ],
       },
       {
-        icon:<CiViewTable />,
+        icon:CiViewTable,
         label: "Tables",
         route: "#",
         children: [
@@ -355,7 +355,7 @@ const menuItems= [
         ],
       },
       {
-        icon:<FaPager/>,
+        icon:FaPager,
         label: "Pages",
         route: "#",
         children: [
@@ -365,5 +365,17 @@ const menuItems= [
 ];
 ```
 ```js
-
+  {/* <!-- Sidebar Menu --> */}
+          <nav>
+              <ul className="mb-6 flex flex-col gap-2">
+                  {menuItems.map((menuItem, menuIndex) => (
+                    <SidebarItem
+                      key={menuIndex}
+                      item={menuItem}
+                      pageName={pageName}
+                      setPageName={setPageName}
+                    />
+                  ))}
+                </ul>
+          </nav>
 ```
