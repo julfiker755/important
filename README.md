@@ -33,3 +33,12 @@ const useConverter = () => {
 export default useConverter
 
 ```
+```js
+//tailwind css
+<ul class="hover:[&>li]:bg-[red]">
+  <li>Julfiker</li>
+  <li>Jim</li>
+  <li>Rahaman</li>
+  <li>Julfiker Rahaman</li>
+</ul>
+```
