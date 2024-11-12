@@ -43,4 +43,5 @@ export default useConverter
 </ul>
 // shor and topic
 *:text-[green]
+[&_img]:size-20
 ```
