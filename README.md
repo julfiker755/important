@@ -45,3 +45,19 @@ export default useConverter
 *:text-[green]
 [&_img]:size-20
 ```
+
+```js
+// custom404
+// app>[...not-found]
+"use client"
+import { redirect } from 'next/navigation';
+import { useEffect } from 'react'
+
+export default function Custom404() {
+  useEffect(() => {
+    redirect("/")
+  }, []);
+  return null;
+}
+
+```
