@@ -48,7 +48,7 @@ export default useConverter
 
 ```js
 // custom404
-// app>[...not-found]
+// app>[...not-found]>page.js
 "use client"
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react'
