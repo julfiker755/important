@@ -44,6 +44,15 @@ export default useConverter
 // shor and topic
 *:text-[green]
 [&_img]:size-20
+-------------------------------------
+<table id="t1" class="[&_td]:px-2 [&_td]:text-lg">
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+default: "h-9 px-4 py-2 has-[>svg]:px-3",
 ```
 
 ```js
