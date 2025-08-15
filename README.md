@@ -118,4 +118,6 @@ export default function Icon({ name, className = "" }: IconProps) {
   });
 }
 
+https://apidog.com/blog/free-cursor-ai/
+
 ```
