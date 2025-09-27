@@ -1,5 +1,6 @@
 ```js
-npx shadcn@latest button add input label  textarea table sonner skeleton dialog 
+npx shadcn@latest button add input label  textarea table sonner skeleton dialog
+ npm i js-cookie date-fns dayjs tailwind-scrollbar-hide use-debounce zod
 
 ```
 ## not found
