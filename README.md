@@ -89,7 +89,8 @@ https://apidog.com/blog/free-cursor-ai/
 ```
 
 
-``js
+```js
+
  {
         path: 'chats',
         lazy: async () => ({
@@ -108,4 +109,5 @@ https://apidog.com/blog/free-cursor-ai/
           Component: (await import('@/components/coming-soon')).default,
         }),
       },
+      
 ```
