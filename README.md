@@ -87,3 +87,25 @@ export const DashboardIcon = (props: React.SVGProps<SVGSVGElement>) => (
 https://apidog.com/blog/free-cursor-ai/
 
 ```
+
+
+``js
+ {
+        path: 'chats',
+        lazy: async () => ({
+          Component: (await import('@/components/coming-soon')).default,
+        }),
+      },
+      {
+        path: 'users',
+        lazy: async () => ({
+          Component: (await import('@/components/coming-soon')).default,
+        }),
+      },
+      {
+        path: 'analysis',
+        lazy: async () => ({
+          Component: (await import('@/components/coming-soon')).default,
+        }),
+      },
+```
