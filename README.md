@@ -111,3 +111,30 @@ https://apidog.com/blog/free-cursor-ai/
       },
       
 ```
+
+
+```js
+"use client";
+import { useEffect } from "react";
+
+export default function Example() {
+  // Override global fetch
+  window.fetch = async (url, options) => {
+    console.log("Fake fetch called for:", url);
+    // Return mock response (no real network)
+    return new Response(JSON.stringify({ message: "hidden fetch" }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  };
+
+  useEffect(() => {
+    fetch("https://api.example.com/data")
+      .then((r) => r.json())
+      .then(console.log);
+  }, []);
+
+  return <div>Silent fetch</div>;
+}
+
+```
